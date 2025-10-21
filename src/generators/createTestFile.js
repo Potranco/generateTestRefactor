@@ -3,7 +3,7 @@ import path from "path";
 import { callOllama } from "../utils/ollamaClient.js";
 import generatePrompt from '../prompts/test.js'
 
-async function testRepository(filePath, code, testSystem) {
+async function createTestFile(filePath, code, testSystem) {
   try {
     const start = Date.now();
     const prompt = generatePrompt({code, testSystem})
@@ -30,4 +30,4 @@ async function testRepository(filePath, code, testSystem) {
   }
 }
 
-export default testRepository
+export default createTestFile

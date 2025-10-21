@@ -5,14 +5,12 @@ import createTestFile from './generators/createTestFile.js'
 const modelo = 'deepseek-coder-v2';
 
 // --- CLI ---
-const rutaProyecto = process.argv[2];
-if (!rutaProyecto) {
-  console.error('❌ Debes indicar la ruta del proyecto. Ejemplo:');
-  console.error('   node agente.js /ruta/a/tu/proyecto');
+const rutaFile = process.argv[2];
+if (!rutaFile) {
+  console.error('❌ Debes indicar la ruta del archivo. Ejemplo:');
+  console.error('   node agente.js /ruta/a/tu/proyecto/file.js');
   process.exit(1);
 }
-
-const SRC_DIR = path.join(rutaProyecto, 'src');
 
 // --- Obtener archivos JS / TS ---
 function obtenerArchivos(dir) {
@@ -32,29 +30,29 @@ function obtenerArchivos(dir) {
 async function generarTest(rutaArchivo) {
   const codigo = fs.readFileSync(rutaArchivo, 'utf8');
   const nombre = path.basename(rutaArchivo).replace(/\.(js|ts|jsx|tsx)$/, '.test.js');
+  const salida = path.join(path.dirname(rutaArchivo), nombre);
 
   const response = await createTestFile(rutaArchivo, codigo, "vitest @testing-library")
+  
   console.log(response);
 }
 
 // --- Main ---
 async function main() {
-  console.log(`🚀 Iniciando análisis en: ${rutaProyecto}`);
-  const archivos = obtenerArchivos(SRC_DIR);
-
-  if (archivos.length === 0) {
-    console.log('⚠️ No se encontraron archivos en la carpeta src.');
-    return;
+  console.log(`🚀 Iniciando análisis en: ${rutaFile}`);
+  
+  if (!fs.existsSync(rutaFile)) {
+    console.log('⚠️ No se encontro el archivo.')
+    return ;
   }
 
-  for (const archivo of archivos) {
-    if (archivo.search('.test.') === -1){
-      console.log(`\n📄 Procesando: ${archivo}`);
-      await generarTest(archivo);
-    } 
-    // await refactorizar(archivo);
+  if (fs.statSync(rutaFile).isDirectory()) {
+    console.log('⚠️ Es un directorio (npm run testRepository).')
+    return ;
   }
-
+    
+  console.log(`\n📄 Procesando: ${rutaFile}`);
+  await generarTest(rutaFile);
   console.log('\n✅ Proceso completado.');
 }
 
