@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import createTestFile from './generators/createTestFile.js'
 
-const modelo = 'deepseek-coder-v2';
+const modelo = 'deepseek';
+const testSystem = "vitest @testing-library"
 
 // --- CLI ---
 const rutaFile = process.argv[2];
@@ -12,34 +13,19 @@ if (!rutaFile) {
   process.exit(1);
 }
 
-// --- Obtener archivos JS / TS ---
-function obtenerArchivos(dir) {
-  const archivos = [];
-  if (!fs.existsSync(dir)) return archivos;
-
-  for (const file of fs.readdirSync(dir)) {
-    const full = path.join(dir, file);
-    const stat = fs.statSync(full);
-    if (stat.isDirectory()) archivos.push(...obtenerArchivos(full));
-    else if (/\.(js|ts|jsx|tsx)$/.test(file)) archivos.push(full);
-  }
-  return archivos;
-}
-
 // --- Generar test ---
 async function generarTest(rutaArchivo) {
   const codigo = fs.readFileSync(rutaArchivo, 'utf8');
   const nombre = path.basename(rutaArchivo).replace(/\.(js|ts|jsx|tsx)$/, '.test.js');
-  const salida = path.join(path.dirname(rutaArchivo), nombre);
 
-  const response = await createTestFile(rutaArchivo, codigo, "vitest @testing-library")
+  const response = await createTestFile(rutaArchivo, codigo, testSystem, modelo)
   
   console.log(response);
 }
 
 // --- Main ---
 async function main() {
-  console.log(`🚀 Iniciando análisis en: ${rutaFile}`);
+  console.log(`🚀 Iniciando análisis: ${rutaFile}`);
   
   if (!fs.existsSync(rutaFile)) {
     console.log('⚠️ No se encontro el archivo.')

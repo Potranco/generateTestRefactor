@@ -20,7 +20,9 @@ git clone https://tu-repo.git
 cd refactor-test-ai
 ```
 
-### Generar test de un repositorio
+# Generar test
+
+## Generar test de un repositorio
 
 Recomiendo el uso de versionado de codigo (como git) para no perder archivos o test ya existentes.
 
@@ -28,7 +30,7 @@ Recomiendo el uso de versionado de codigo (como git) para no perder archivos o t
 npm run testRepository -- ../url/local/del/repositorio
 ```
 
-### Generar test de un archivo
+## Generar test de un archivo
 
 Recomiendo el uso de versionado de codigo (como git) para no perder archivos o test ya existentes.
 
@@ -48,3 +50,15 @@ test('canvas element is present', () => {
   expect(canvas).toBeInTheDocument()
 })
 ```
+
+# URLS
+
+- https://ollama.com/
+- https://ollama.com/search
+
+## AI MODELS
+
+- https://ollama.com/library/deepseek-coder-v2
+- https://ollama.com/library/llama3
+- https://ollama.com/library/mistral
+
