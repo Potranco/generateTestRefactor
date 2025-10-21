@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import ollama from 'ollama'; // ✅ versión Node correcta
+import testRepository from './generators/testRepository.js'
 
-const modelo = 'deepseek-coder-v2'; // o 'qwen2.5-coder:14b'
+const modelo = 'deepseek-coder-v2';
 
 // --- CLI ---
 const rutaProyecto = process.argv[2];
@@ -40,19 +40,10 @@ async function generarTest(rutaArchivo) {
   const codigo = fs.readFileSync(rutaArchivo, 'utf8');
   const nombre = path.basename(rutaArchivo).replace(/\.(js|ts|jsx|tsx)$/, '.test.js');
   const salida = path.join(TEST_DIR, nombre);
-  
-  const response = await fetch("http://localhost:3001/api/test", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      filePath: rutaArchivo,
-      code: codigo,
-      testSystem: "vitest @testing-library" // 👈 o "jest", "mocha", "ava"
-    })
-  });
 
-  const data = await response.json();
-  console.log(data);
+  const response = await testRepository(rutaArchivo, codigo, "vitest @testing-library")
+  
+  console.log(response);
 }
 
 // --- Main ---

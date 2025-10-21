@@ -18,3 +18,11 @@ Genera automáticamente **tests unitarios** y sugerencias de **refactorización*
 ```bash
 git clone https://tu-repo.git
 cd refactor-test-ai
+```
+
+## Ejecución
+
+### Generar test de un repositorio
+```bash
+npm run testRepository -- ../url/local/del/repositorio
+```
