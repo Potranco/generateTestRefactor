@@ -3,7 +3,11 @@ import path from "path";
 import { callOllama } from "../utils/ollamaClient.js";
 import generatePrompt from '../prompts/test.js'
 
-async function createTestFile(filePath, code, testSystem, modelo = 'deepseek') {
+async function createTestFile(
+  filePath, code,
+  testSystem = "vitest @testing-library",
+  modelo = 'deepseek'
+) {
   try {
     const start = Date.now();
     const prompt = generatePrompt({code, testSystem})

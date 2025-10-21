@@ -2,11 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import createTestFile from './generators/createTestFile.js'
 
-const modelo = 'deepseek';
-const testSystem = "vitest @testing-library"
-
 // --- CLI ---
 const rutaFile = process.argv[2];
+const model = process.argv[3] || 'deepseek';
+const testSystem = process.argv[4] ? process.argv.slice(4).join(' ') : 'jest';
+
 if (!rutaFile) {
   console.error('❌ Debes indicar la ruta del archivo. Ejemplo:');
   console.error('   node agente.js /ruta/a/tu/proyecto/file.js');
@@ -18,14 +18,14 @@ async function generarTest(rutaArchivo) {
   const codigo = fs.readFileSync(rutaArchivo, 'utf8');
   const nombre = path.basename(rutaArchivo).replace(/\.(js|ts|jsx|tsx)$/, '.test.js');
 
-  const response = await createTestFile(rutaArchivo, codigo, testSystem, modelo)
+  const response = await createTestFile(rutaArchivo, codigo, testSystem, model)
   
   console.log(response);
 }
 
 // --- Main ---
 async function main() {
-  console.log(`🚀 Iniciando análisis: ${rutaFile}`);
+  console.log(`🚀 Iniciando análisis (${model}): ${rutaFile}`);
   
   if (!fs.existsSync(rutaFile)) {
     console.log('⚠️ No se encontro el archivo.')
