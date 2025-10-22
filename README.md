@@ -20,11 +20,23 @@ git clone https://tu-repo.git
 cd refactor-test-ai
 ```
 
-# Generar test
-
-## Generar test de un repositorio
+# Refactor
 
 Recomiendo el uso de versionado de codigo (como git) para no perder archivos o test ya existentes.
+
+## Generar refactor de un archivo
+
+```bash
+npm run refactorFile -- ../url/local/del/archivo.js
+npm run refactorFile -- ../url/local/del/archivo.js name_model
+
+```
+
+# Generar test
+
+Recomiendo el uso de versionado de codigo (como git) para no perder archivos o test ya existentes.
+
+## Generar test de un repositorio
 
 ```bash
 npm run testRepository -- ../url/local/del/repositorio
@@ -32,15 +44,13 @@ npm run testRepository -- ../url/local/del/repositorio
 
 ## Generar test de un archivo
 
-Recomiendo el uso de versionado de codigo (como git) para no perder archivos o test ya existentes.
-
 ```bash
 npm run testFile -- ../url/local/del/archivo.js
 npm run testFile -- ../url/local/del/archivo.js name_model
 npm run testFile -- ../url/local/del/archivo.js name_model name_testSystem1 name_testSystem1
 ```
 
-## MODELOS (Name Model)
+## MODELOS (name_model)
 - llama3
 - mistral
 - deepseek (por defecto)
@@ -59,7 +69,7 @@ Para indicar el testsystem tendremos que utilizar el modelo que queremos usar
 ...
 
 Tambien podemos usar varios:
-- vitest @testing-library ...
+- vitest @testing-library typescript ...
 
 ## Ejemplo de archivo de test generado
 
