@@ -1,21 +1,17 @@
 import fs from "fs";
 import path from "path";
 import { callOllama } from "../utils/ollamaClient.js";
-import generatePrompt from '../prompts/test.js'
+import generatePrompt from '../prompts/refactor.js'
 
-async function createTestFile(
-  filePath, code,
-  testSystem = 'jest', //"vitest @testing-library"
-  modelo = 'deepseek'
-) {
+async function createRefactorFile(filePath, code, modelo = 'deepseek') {
+  const start = Date.now();
   try {
-    const start = Date.now();
-    const prompt = generatePrompt({code, testSystem})
+    const prompt = generatePrompt({code})
     let respuesta = await callOllama(prompt, modelo);
         
     const testDir = path.dirname(filePath);
     const ext = path.extname(filePath)
-    const testPath = path.join(testDir, path.basename(filePath).replace(ext, ".test"+ext));
+    const testPath = path.join(testDir, path.basename(filePath).replace(ext, "_refactor"+ext));
 
     fs.writeFileSync(testPath, respuesta);
 
@@ -34,4 +30,4 @@ async function createTestFile(
   }
 }
 
-export default createTestFile
+export default createRefactorFile

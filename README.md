@@ -1,4 +1,4 @@
-# Refactor & Test con IA
+# Refactor & Test con IA en local
 Proyecto para generar test y refactors con ai.
 
 Genera automáticamente **tests unitarios** y sugerencias de **refactorización** para proyectos en **JavaScript y TypeScript** usando IA local.
@@ -36,7 +36,30 @@ Recomiendo el uso de versionado de codigo (como git) para no perder archivos o t
 
 ```bash
 npm run testFile -- ../url/local/del/archivo.js
+npm run testFile -- ../url/local/del/archivo.js name_model
+npm run testFile -- ../url/local/del/archivo.js name_model name_testSystem1 name_testSystem1
 ```
+
+## MODELOS (Name Model)
+- llama3
+- mistral
+- deepseek (por defecto)
+
+## TestSystems
+
+Para indicar el testsystem tendremos que utilizar el modelo que queremos usar
+
+- jest (por defecto)
+- vitest
+- mocha
+- @testing-library
+- typescript
+- js
+- es6
+...
+
+Tambien podemos usar varios:
+- vitest @testing-library ...
 
 ## Ejemplo de archivo de test generado
 
@@ -51,12 +74,12 @@ test('canvas element is present', () => {
 })
 ```
 
-# URLS
+# Urls
 
 - https://ollama.com/
 - https://ollama.com/search
 
-## AI MODELS
+## Ai models
 
 - https://ollama.com/library/deepseek-coder-v2
 - https://ollama.com/library/llama3

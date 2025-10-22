@@ -5,10 +5,10 @@
   "scripts": {
     "start": "node ./src/server.js",
     "testRepository": "node ./src/testRepository.js",
-    "testFile": "node ./src/testFile.js"
+    "testFile": "node ./src/testFile.js",
+    "refactorFile": "node ./src/refactorFile.js"
   },
   "dependencies": {
-    "axios": "^1.6.8",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.19.2"
