@@ -8,7 +8,7 @@ const MODELS = {
 };
 
 // control timeout
-const timeoutMs = 600000
+const timeoutMs = 6000000
 
 export async function callOllama(prompt, model = "deepseek") {
   // create control for timeout
@@ -19,8 +19,10 @@ export async function callOllama(prompt, model = "deepseek") {
   try {
     const response = await fetch(OLLAMA_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      //signal: controller.signal,
       body: JSON.stringify({
         model: selectedModel,
         prompt,

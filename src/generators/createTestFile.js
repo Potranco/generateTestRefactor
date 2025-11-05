@@ -8,8 +8,8 @@ async function createTestFile(
   testSystem = 'jest', //"vitest @testing-library"
   modelo = 'deepseek'
 ) {
+  const start = Date.now();
   try {
-    const start = Date.now();
     const prompt = generatePrompt({code, testSystem})
     let respuesta = await callOllama(prompt, modelo);
         
